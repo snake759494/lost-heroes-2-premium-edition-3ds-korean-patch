@@ -30,8 +30,8 @@ def load_tr():
     if os.path.exists(fx): tr.update(json.load(open(fx,encoding='utf-8')))
     return tr
 
-KEEP=list(range(0,64))+list(range(233,363))
-FREE=list(range(363,2646))+list(range(64,233))
+KEEP=list(range(0,64))+list(range(233,363))+[699,1279]  # 1279: 업데이트 v1.1.0 타이틀 버전 표시(VER. 1. 1. 0)의 「.」, 699: 전각 「．」
+FREE=[i for i in range(363,2646) if i not in (699,1279)]+list(range(64,233))
 TOK=re.compile(r'\{([0-9a-fg]+)(?:\*(\d+))?\}')
 
 def batch_comp(raws):
@@ -191,7 +191,9 @@ def main(out):
         tid=int(os.path.basename(ef)[:-5]);sp=json.load(open(ef,encoding='utf-8'))
         if sp.get('skip') or not os.path.exists(B+'/tex/ko/%d.png'%tid): continue
         img=np.array(_I.open(B+'/tex/ko/%d.png'%tid).convert('RGBA'))
-        r=tidx[tid];h=hkey.get(('ext/romfs/'+r[0],r[1],r[2]))
+        r=tidx[tid]
+        if r[0].startswith('UPD:'): continue  # 업데이트 전용(tools/mkupdate.py)
+        h=hkey.get(('ext/romfs/'+r[0],r[1],r[2]))
         for (pk_,tp_,nm_) in byhash.get(h,[('ext/romfs/'+r[0],r[1],r[2])]):
             texp.setdefault(pk_,{})[(tp_,nm_)]=img
     print('texture edits',sum(len(v) for v in texp.values()))
@@ -220,6 +222,10 @@ def main(out):
     from PIL import Image
     Image.fromarray(np.hstack(ims14)).save(B+'/font14_ko.png');Image.fromarray(np.hstack(ims10)).save(B+'/font10_ko.png')
     json.dump({c:s for c,s in cmap.items()},open(B+'/charmap.json','w',encoding='utf-8'),ensure_ascii=False)
+    if os.environ.get('LFS_OUT'):  # 실기 LayeredFS용: 바뀐 RomFS 파일을 폴더 구조 그대로 저장
+        for k,v in repl.items():
+            p=os.path.join(os.environ['LFS_OUT'],k);os.makedirs(os.path.dirname(p),exist_ok=True);open(p,'wb').write(v)
+        print('layeredfs files',len(repl))
     build.build(ROM,out,repl)
     print('built',out)
 if __name__=='__main__':

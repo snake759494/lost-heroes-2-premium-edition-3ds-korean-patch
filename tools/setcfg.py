@@ -1,5 +1,5 @@
 import sys, re, os
-p = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'azahar', 'user', 'config', 'qt-config.ini')
+p = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', os.environ.get('EMU_DIR','azahar'), 'user', 'config', 'qt-config.ini')
 s = open(p, encoding='utf-8').read()
 BS = chr(92)
 for kv in sys.argv[1:]:

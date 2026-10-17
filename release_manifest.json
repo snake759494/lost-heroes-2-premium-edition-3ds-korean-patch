@@ -1,19 +1,35 @@
 {
- "version": "v1.0",
- "asset": "LostHeroes2PE_3DS_KO_v1.0.xdelta",
- "asset_size": 88586520,
- "asset_sha256": "96c04e2a0c9f4782f18b303e861895cc1884a702252283e30a61e35fa9aeae91",
+ "version": "v1.1",
+ "asset": "LostHeroes2PE_3DS_KO_v1.1.xdelta",
+ "asset_size": 88560851,
+ "asset_sha256": "6c84478a81ccd3138aee3ba701b3edfd3f7411a8f649e0742a0f7d456efea324",
  "source_3ds_size": 1073741824,
  "source_3ds_md5": "e73ca7ff1b0475fdab84fd7b4b95dd3a",
  "source_3ds_sha256": "28c6d18321477ded7712fcd3197dff292a5a052ecf868a90be2a133c9792e771",
  "result_3ds_size": 872046592,
- "result_3ds_md5": "13dc109e8761bcca0e6f62800f2f90e0",
- "result_3ds_sha256": "5e8f2ac6148ba510b03a91f551480835d286cf96b66de2b1450a65518dfc3036",
+ "result_3ds_md5": "8031072fccb46df6f32c7e9ea966d862",
+ "result_3ds_sha256": "2cb769c708510f2b43179183dcce868b5d12c8b2a73203f294a43f97e8e3db7f",
  "crypto_flag": {
-  "asset": "LostHeroes2PE_3DS_KO_v1.0_CryptoFlag.xdelta",
-  "asset_size": 88586545,
-  "asset_sha256": "714504d24b4b446267d845b0c258622fb20ddb81581e7082cbff0290a1ed7b28",
+  "asset": "LostHeroes2PE_3DS_KO_v1.1_CryptoFlag.xdelta",
+  "asset_size": 88560876,
+  "asset_sha256": "5c935a6b6a64df798e4d3ec0fbbac893c2f9408804002e6e9486ca92abc006d2",
   "source_3ds_md5": "f04d2f36f395ef807473c39a57061b26",
   "source_3ds_sha256": "6cb7b52fdc7d87a672ee59f8be4598ae25f0a83f2dea2ae0956e4472196f8e08"
+ },
+ "update": {
+  "asset": "LostHeroes2PE_3DS_KO_Update_v1.1.0_v1.1.xdelta",
+  "asset_size": 439035,
+  "asset_sha256": "74bd5616f019233d3e7a91fc7e1a6d165dea30c12ac9548d55484fd432ec557e",
+  "source_cia_size": 3744704,
+  "source_cia_md5": "a0f01dad7f2178f7115c65f2324060e6",
+  "source_cia_sha256": "07089bdd2238d4bae5da4dcd425cc9845fbb5fed50aa5a34b43a60ec650eb51e",
+  "result_cia_size": 3748800,
+  "result_cia_md5": "72cb14d34fe5677b8f8de464f43099cf",
+  "result_cia_sha256": "958f955ca48d276c964607fc6ac1058b708362668a80505303de8b2a7fcc29f2"
+ },
+ "layeredfs_maker": {
+  "asset": "LH2_LayeredFS_Maker.exe",
+  "asset_size": 10128562,
+  "asset_sha256": "49b2a8de4f0a735d301d774036f412fddcb8d64488c2e1c25bd9819ee6fd1a0c"
  }
 }

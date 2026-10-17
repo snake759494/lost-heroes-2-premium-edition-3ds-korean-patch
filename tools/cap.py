@@ -7,10 +7,10 @@ import myproc
 pids=myproc.mypids()
 W=[w for pid in pids for w in wins(pid)]
 for w in W:
-    if not title(w).startswith('Azahar'): u.PostMessageW(w,0x10,0,0)
+    if not title(w).startswith(('Azahar','Lime')): u.PostMessageW(w,0x10,0,0)
 time.sleep(0.3)
 import numpy as _n
-C=[w for pid in pids for w in wins(pid) if title(w).startswith('Azahar')]
+C=[w for pid in pids for w in wins(pid) if title(w).startswith(('Azahar','Lime'))]
 h=C[0]
 for s in sys.argv[2:]:
     if s.startswith('w'): time.sleep(float(s[1:]));continue
@@ -18,7 +18,7 @@ for s in sys.argv[2:]:
     for i in range(int(n or 1)): key(h,k);time.sleep(0.35)
 import glob,shutil
 from ctrlkey import ctrl_key
-SD=os.path.join(B,'azahar','shots');old=set(glob.glob(SD+'/*.png'))
+SD=os.path.join(B,os.environ.get('EMU_DIR','azahar'),'shots');old=set(glob.glob(SD+'/*.png'))
 ctrl_key(h,ord('P'))
 new=set()
 for i in range(40):

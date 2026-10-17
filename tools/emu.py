@@ -1,7 +1,7 @@
 import ctypes,ctypes.wintypes as W,subprocess,time,os,sys
 from PIL import Image
 u=ctypes.windll.user32;g=ctypes.windll.gdi32
-EXE=os.environ.get('AZAHAR_EXE',os.path.join(os.path.dirname(__file__),'..','azahar','azahar.exe'))  # 한글 경로 불가: ASCII 경로 권장
+EXE=os.environ.get('EMU_EXE',os.path.join(os.path.dirname(__file__),'..','azahar','azahar.exe'))  # 한글 경로 불가: ASCII 경로 권장
 WM_KEYDOWN,WM_KEYUP=0x100,0x101
 KEYS=dict(A=65,B=83,X=90,Y=88,UP=84,DOWN=71,LEFT=70,RIGHT=72,L=81,R=87,START=77,SELECT=78)
 def wins(pid):
