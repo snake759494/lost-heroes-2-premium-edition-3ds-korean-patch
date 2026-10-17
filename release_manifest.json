@@ -1,0 +1,19 @@
+{
+ "version": "v1.0",
+ "asset": "LostHeroes2PE_3DS_KO_v1.0.xdelta",
+ "asset_size": 88586520,
+ "asset_sha256": "96c04e2a0c9f4782f18b303e861895cc1884a702252283e30a61e35fa9aeae91",
+ "source_3ds_size": 1073741824,
+ "source_3ds_md5": "e73ca7ff1b0475fdab84fd7b4b95dd3a",
+ "source_3ds_sha256": "28c6d18321477ded7712fcd3197dff292a5a052ecf868a90be2a133c9792e771",
+ "result_3ds_size": 872046592,
+ "result_3ds_md5": "13dc109e8761bcca0e6f62800f2f90e0",
+ "result_3ds_sha256": "5e8f2ac6148ba510b03a91f551480835d286cf96b66de2b1450a65518dfc3036",
+ "crypto_flag": {
+  "asset": "LostHeroes2PE_3DS_KO_v1.0_CryptoFlag.xdelta",
+  "asset_size": 88586545,
+  "asset_sha256": "714504d24b4b446267d845b0c258622fb20ddb81581e7082cbff0290a1ed7b28",
+  "source_3ds_md5": "f04d2f36f395ef807473c39a57061b26",
+  "source_3ds_sha256": "6cb7b52fdc7d87a672ee59f8be4598ae25f0a83f2dea2ae0956e4472196f8e08"
+ }
+}
