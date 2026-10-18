@@ -1,18 +1,18 @@
 {
- "version": "v1.2",
- "asset": "LostHeroes2PE_3DS_KO_v1.2.xdelta",
- "asset_size": 92383149,
- "asset_sha256": "8fd263a5916ad451cc5ba629248211c60b054eb135c47a935b55a9fb1d995dc3",
+ "version": "v1.3",
+ "asset": "LostHeroes2PE_3DS_KO_v1.3.xdelta",
+ "asset_size": 92725220,
+ "asset_sha256": "713b099e7e87aa0e6376924d8e02ac9544b0e98ef66d7adffaf945c6468ef508",
  "source_3ds_size": 1073741824,
  "source_3ds_md5": [
   "e73ca7ff1b0475fdab84fd7b4b95dd3a",
   "f04d2f36f395ef807473c39a57061b26"
  ],
- "result_3ds_size": 873824256,
- "result_3ds_md5": "f1aee302dbd51a113810f463eec7596a",
- "result_3ds_sha256": "9441a828d3cf3988718ab2e5d79c6de5431b7ac5b0a1ed94f3fa2795e7cf1f84",
+ "result_3ds_size": 874352640,
+ "result_3ds_md5": "3bc4f51fb99718922f8b44d657d0bf4c",
+ "result_3ds_sha256": "fa159c4ea8832b6187ecf6473bb9eb019b5cc99b43e985fca750acbb6fd51e92",
  "update": {
-  "asset": "LostHeroes2PE_3DS_KO_Update_v1.1.0_v1.2.xdelta",
+  "asset": "LostHeroes2PE_3DS_KO_Update_v1.1.0_v1.3.xdelta",
   "asset_size": 4163671,
   "asset_sha256": "7b4587fced22d57455f2ef5293318676c7dec6af4d2da835c06411fdef1fd58e",
   "source_cia_size": 3744704,
@@ -28,9 +28,14 @@
   "asset_sha256": "ef999f033f72d18d7b407b8a32291256ea9b09d529aa0ef25238401618a48ded"
  },
  "emu_patcher": {
-  "asset": "LostHeroes2PE_3DS_KO_v1.2_EmuPatcher.zip",
-  "asset_size": 81339835,
-  "asset_sha256": "e2d9857c86ce196bd1d4eff9953040c0ae58acc290e08be2a81edd57adaf191c",
-  "korean_cia_size": 873822592
+  "asset": "LostHeroes2PE_3DS_KO_v1.3_EmuPatcher.zip",
+  "asset_size": 81506196,
+  "asset_sha256": "73b525a5b63b69996ee1be2b1d53129d4a7ccedf44e76e40898cc50d11617c17",
+  "korean_cia_size": 874350976
+ },
+ "herosenki": {
+  "size": 2097152,
+  "sha256": "82d0397c6a9c41e190bb06cb59c6b07dea0a6b15130b19629ebf19cbca62c5f2",
+  "note": "Lime3DS only (Azahar not supported)"
  }
 }

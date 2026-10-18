@@ -6,7 +6,7 @@ class P{
   const string BASE_X="LostHeroes2PE_3DS_KO_base.xdelta", UPD_X="LostHeroes2PE_3DS_KO_update.xdelta";
   static readonly string[] BASE_MD5={"e73ca7ff1b0475fdab84fd7b4b95dd3a","f04d2f36f395ef807473c39a57061b26"};
   const string UPD_MD5="a0f01dad7f2178f7115c65f2324060e6";
-  const string KO3DS_SHA="9441a828d3cf3988718ab2e5d79c6de5431b7ac5b0a1ed94f3fa2795e7cf1f84";
+  const string KO3DS_SHA="fa159c4ea8832b6187ecf6473bb9eb019b5cc99b43e985fca750acbb6fd51e92";
   const string KOUPD_SHA="ab9153dd144bcdcb68dffabdbf9bb4b31c510e1d7dc05634421981978b02530c";
   static string Hex(byte[] b)=>string.Concat(b.Select(x=>x.ToString("x2")));
   static string FileHash(HashAlgorithm h,string p){using var f=File.OpenRead(p);return Hex(h.ComputeHash(f));}
@@ -41,7 +41,7 @@ class P{
       Say("\n완료! 만들어진 파일:");
       foreach(var f in Directory.GetFiles(dir).Where(x=>Path.GetFileName(x).Contains("(Korean)")))Say("  "+Path.GetFileName(f));
       Say("\n에뮬레이터(Azahar/Lime3DS)의 「File > Install CIA」로 본편 CIA(와 업데이트 CIA)를 설치한 뒤,");
-      Say("게임 목록의 설치된 「로스트 히어로즈 2」를 실행하세요. 「히어로 전기」는 설치판에서 동작합니다.");
+      Say("게임 목록의 설치된 「로스트 히어로즈 2」를 실행하세요. 「히어로 전기」는 Lime3DS 설치판에서만 동작합니다(Azahar 불가).");
       Pause();return 0;
     }catch(Exception e){Say("\n오류: "+e.Message);Pause();return 1;}
   }

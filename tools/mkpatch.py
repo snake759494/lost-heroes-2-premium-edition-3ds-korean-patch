@@ -5,7 +5,7 @@ import numpy as np
 import mbb2,export,tex,gfpt,hfont,build
 from lz11 import comp_dec,comp_enc
 B=os.path.join(os.path.dirname(__file__),'..')
-ROM=os.environ.get('LH2_ROM',os.path.join(B,'..','Lost Heroes 2 (Premium Edition) (Japan).3ds'))
+ROM='D:/3ds/로스트히어로즈2프리미엄에디션/Lost Heroes 2 (Premium Edition) (Japan).3ds'
 G=export.G
 
 def load_tr():
@@ -222,6 +222,8 @@ def main(out):
     from PIL import Image
     Image.fromarray(np.hstack(ims14)).save(B+'/font14_ko.png');Image.fromarray(np.hstack(ims10)).save(B+'/font10_ko.png')
     json.dump({c:s for c,s in cmap.items()},open(B+'/charmap.json','w',encoding='utf-8'),ensure_ascii=False)
+    hk=B+'/hs/herosenki_ko.bin'   # 히어로 전기(SFC) 한글판: tools/hsbuild.py hs/herosenki_ko.bin
+    if os.path.exists(hk): repl['herosenki/herosenki.bin']=open(hk,'rb').read();print('herosenki',len(repl['herosenki/herosenki.bin']))
     if os.environ.get('LFS_OUT'):  # 실기 LayeredFS용: 바뀐 RomFS 파일을 폴더 구조 그대로 저장
         for k,v in repl.items():
             p=os.path.join(os.environ['LFS_OUT'],k);os.makedirs(os.path.dirname(p),exist_ok=True);open(p,'wb').write(v)
