@@ -26,5 +26,11 @@
   "asset": "LH2_LayeredFS_Maker.exe",
   "asset_size": 10129586,
   "asset_sha256": "ef999f033f72d18d7b407b8a32291256ea9b09d529aa0ef25238401618a48ded"
+ },
+ "emu_patcher": {
+  "asset": "LostHeroes2PE_3DS_KO_v1.2_EmuPatcher.zip",
+  "asset_size": 81339835,
+  "asset_sha256": "e2d9857c86ce196bd1d4eff9953040c0ae58acc290e08be2a81edd57adaf191c",
+  "korean_cia_size": 873822592
  }
 }

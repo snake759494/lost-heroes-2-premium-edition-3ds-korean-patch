@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType><TargetFramework>net6.0</TargetFramework><Nullable>disable</Nullable>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier><SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile><PublishTrimmed>true</PublishTrimmed><InvariantGlobalization>true</InvariantGlobalization>
+    <AssemblyName>LH2_EmuPatcher</AssemblyName>
+  </PropertyGroup>
+</Project>

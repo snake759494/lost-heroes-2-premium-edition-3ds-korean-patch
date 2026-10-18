@@ -8,8 +8,16 @@
 | `LostHeroes2PE_3DS_KO_v1.2.xdelta` | 본편 패치 — 복호화 덤프용(NoCrypto 표시가 켜진 판본·꺼진 판본 모두 적용됨) |
 | `LostHeroes2PE_3DS_KO_Update_v1.1.0_v1.2.xdelta` | 업데이트 v1.1.0 패치 — **복호화된** 업데이트 CIA용 |
 | `LH2_LayeredFS_Maker.exe` | 3DS 실기(Luma3DS)용 LayeredFS 폴더 생성기 |
+| `LostHeroes2PE_3DS_KO_v1.2_EmuPatcher.zip` | 에뮬레이터용 일괄 패처 — 원본 `.3ds`(+복호화 업데이트 `.cia`)로 한글 `.3ds`·설치용 한글 본편 CIA·한글 업데이트 CIA를 한 번에 생성 |
 
-## 에뮬레이터(Azahar · Lime3DS 등)
+## 에뮬레이터 — 일괄 패처 (권장)
+1. `LostHeroes2PE_3DS_KO_v1.2_EmuPatcher.zip`을 풀고, 같은 폴더에 원본 `.3ds`와 (있으면) **복호화된** v1.1.0 업데이트 `.cia`를 넣습니다(파일 이름 무관).
+2. `LH2_EmuPatcher.exe` 실행 → `...(Korean).3ds`, 설치용 `...(Korean).cia`, `...Update v1.1.0 (Korean).cia` 생성(원본 MD5·결과 SHA-256 자동 검사).
+3. 에뮬레이터 「File > Install CIA」로 본편·업데이트 CIA를 설치하고 게임 목록의 설치판을 실행합니다.
+   - 「히어로 전기」는 본편이 **설치되어 있어야** 동작합니다. Lime3DS 설치판에서 확인했고, Azahar는 재실행 시 진입 정보를 넘기지 못해 타이틀로 돌아옵니다(원본도 동일).
+   - 설치용 CIA는 서명이 없는 CIA로, 에뮬레이터용입니다(인증서·티켓·키를 원본에서 복사하지 않음).
+
+## 에뮬레이터 — 직접 패치
 1. 아래 해시와 일치하는 **원본 `.3ds`**(복호화된 카트리지 덤프, 1GB)를 준비합니다. CIA나 암호화된 덤프에는 적용할 수 없습니다.
    - PowerShell: `Get-FileHash -Algorithm MD5 -LiteralPath '.\Lost Heroes 2 (Premium Edition) (Japan).3ds'`
 2. xdeltaUI 등으로 원본에 본편 xdelta를 적용합니다. 결과 파일 이름은 `Lost Heroes 2 (Premium Edition) (Korean).3ds` 를 권장합니다.
