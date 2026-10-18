@@ -226,7 +226,11 @@ def main(out):
         for k,v in repl.items():
             p=os.path.join(os.environ['LFS_OUT'],k);os.makedirs(os.path.dirname(p),exist_ok=True);open(p,'wb').write(v)
         print('layeredfs files',len(repl))
-    build.build(ROM,out,repl)
+    import codeblz,codestr
+    newcode,n16,n8=codestr.patch(codeblz.decompress(open(B+'/ext/exefs/.code','rb').read()))
+    print('code strings',n16,n8)
+    if os.environ.get('LFS_OUT'): open(os.path.join(os.environ['LFS_OUT'],'..','code.bin'),'wb').write(newcode)
+    build.build(ROM,out,repl,newcode=newcode)
     print('built',out)
 if __name__=='__main__':
     main(sys.argv[1])

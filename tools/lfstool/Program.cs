@@ -3,7 +3,7 @@
 // luma/titles/0004000000146C00/romfs/ 에 바뀐 파일만 만듭니다.
 using System;using System.IO;using System.Linq;using System.Collections.Generic;using System.Security.Cryptography;using System.Text;
 class RomFS{
-  public Dictionary<string,(long off,long size)> Files=new();FileStream fs;
+  public Dictionary<string,(long off,long size)> Files=new();FileStream fs;public long Ncch;
   public RomFS(FileStream f,long romfsOff){fs=f;
     var iv=Read(romfsOff,0x60);if(Encoding.ASCII.GetString(iv,0,4)!="IVFC")throw new Exception("RomFS(IVFC)를 찾지 못했습니다");
     uint mh=BitConverter.ToUInt32(iv,8);long l3=romfsOff+((0x60+mh+0xFFF)&~0xFFFL);
@@ -23,12 +23,17 @@ class RomFS{
   static long NcchRomfs(FileStream f,long ncch){var b=new byte[0x200];f.Position=ncch;f.Read(b,0,0x200);
     if(Encoding.ASCII.GetString(b,0x100,4)!="NCCH")throw new Exception("NCCH 헤더가 없습니다(암호화된 파일이거나 다른 형식)");
     return ncch+(long)BitConverter.ToUInt32(b,0x1B0)*0x200;}
+  public byte[] Code(){ // ExeFS .code (비압축일 때만)
+    var h=Read(Ncch,0x200);long exo=Ncch+(long)BitConverter.ToUInt32(h,0x1A0)*0x200;var ex=Read(Ncch+0x200,0x10);
+    if((ex[0xD]&1)!=0)return null;var eh=Read(exo,0x200);
+    for(int i=0;i<10;i++){string n=Encoding.ASCII.GetString(eh,i*16,8).TrimEnd('\0');if(n==".code"){uint o=U(eh,i*16+8),sz=U(eh,i*16+12);return Read(exo+0x200+o,(int)sz);}}
+    return null;}
   public static RomFS Open3DS(string p){var f=File.OpenRead(p);var b=new byte[0x200];f.Position=0x100;f.Read(b,0,0x40);
     if(Encoding.ASCII.GetString(b,0,4)!="NCSD")throw new Exception(p+": NCSD(.3ds)가 아닙니다");
-    long p0=(long)BitConverter.ToUInt32(b,0x20)*0x200;return new RomFS(f,NcchRomfs(f,p0));}
+    long p0=(long)BitConverter.ToUInt32(b,0x20)*0x200;var r=new RomFS(f,NcchRomfs(f,p0));r.Ncch=p0;return r;}
   public static RomFS OpenCIA(string p){var f=File.OpenRead(p);var h=new byte[0x20];f.Read(h,0,0x20);
     long A(long x)=>(x+63)/64*64;uint hs=U(h,0),cs=U(h,8),ts=U(h,12),tm=U(h,16);
-    long oc=A(A(A(A(hs)+cs)+ts)+tm);return new RomFS(f,NcchRomfs(f,oc));}
+    long oc=A(A(A(A(hs)+cs)+ts)+tm);var r=new RomFS(f,NcchRomfs(f,oc));r.Ncch=oc;return r;}
 }
 class P{
   static int Main(string[] a){
@@ -48,7 +53,8 @@ class P{
         if(A.Files.ContainsKey(k)){var (o,s)=A.Files[k];if(s==kd.Length&&sha.ComputeHash(A.Get(k)).SequenceEqual(sha.ComputeHash(kd)))continue;}
         var op=Path.Combine(outRoot,k.Replace('/',Path.DirectorySeparatorChar));Directory.CreateDirectory(Path.GetDirectoryName(op));File.WriteAllBytes(op,kd);n++;bytes+=kd.Length;}
       Console.WriteLine($"본편: 바뀐 파일 {n}개");
-      if(upd!=null){var U=RomFS.OpenCIA(upd);int m=0;
+      string codeOut=Path.Combine(dir,"luma","titles","0004000000146C00","code.bin");byte[] code=K.Code();
+      if(upd!=null){var U=RomFS.OpenCIA(upd);int m=0;var uc=U.Code();if(uc!=null)code=uc;
         foreach(var k in U.Files.Keys){var op=Path.Combine(outRoot,k.Replace('/',Path.DirectorySeparatorChar));Directory.CreateDirectory(Path.GetDirectoryName(op));var d=U.Get(k);File.WriteAllBytes(op,d);m++;bytes+=d.Length;}
         Console.WriteLine($"업데이트: 파일 {m}개");}
       else Console.WriteLine("(한글 업데이트 .cia가 없어 본편만 만들었습니다. 실기에 v1.1.0 업데이트를 설치했다면 한글 업데이트 .cia도 함께 두고 다시 실행하세요.)");

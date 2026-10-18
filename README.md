@@ -5,16 +5,15 @@
 ## 릴리즈 파일
 | 파일 | 용도 |
 | --- | --- |
-| `LostHeroes2PE_3DS_KO_v1.1.xdelta` | 본편 패치 — NoCrypto 표시가 **켜진** 복호화 덤프용(GodMode9 등, 일반적인 경우) |
-| `LostHeroes2PE_3DS_KO_v1.1_CryptoFlag.xdelta` | 본편 패치 — 복호화는 되었지만 NoCrypto 표시가 **꺼진** 덤프용 (결과물은 위와 동일) |
-| `LostHeroes2PE_3DS_KO_Update_v1.1.0_v1.1.xdelta` | 업데이트 v1.1.0 패치 — **복호화된** 업데이트 CIA용 |
+| `LostHeroes2PE_3DS_KO_v1.2.xdelta` | 본편 패치 — 복호화 덤프용(NoCrypto 표시가 켜진 판본·꺼진 판본 모두 적용됨) |
+| `LostHeroes2PE_3DS_KO_Update_v1.1.0_v1.2.xdelta` | 업데이트 v1.1.0 패치 — **복호화된** 업데이트 CIA용 |
 | `LH2_LayeredFS_Maker.exe` | 3DS 실기(Luma3DS)용 LayeredFS 폴더 생성기 |
 
 ## 에뮬레이터(Azahar · Lime3DS 등)
 1. 아래 해시와 일치하는 **원본 `.3ds`**(복호화된 카트리지 덤프, 1GB)를 준비합니다. CIA나 암호화된 덤프에는 적용할 수 없습니다.
    - PowerShell: `Get-FileHash -Algorithm MD5 -LiteralPath '.\Lost Heroes 2 (Premium Edition) (Japan).3ds'`
-2. xdeltaUI 등으로 원본에 본편 xdelta를 적용합니다(「target window checksum mismatch」가 나면 다른 쪽 xdelta). 결과 파일 이름은 `Lost Heroes 2 (Premium Edition) (Korean).3ds` 를 권장합니다.
-   - 명령줄: `xdelta3 -d -s "Lost Heroes 2 (Premium Edition) (Japan).3ds" LostHeroes2PE_3DS_KO_v1.1.xdelta "Lost Heroes 2 (Premium Edition) (Korean).3ds"`
+2. xdeltaUI 등으로 원본에 본편 xdelta를 적용합니다. 결과 파일 이름은 `Lost Heroes 2 (Premium Edition) (Korean).3ds` 를 권장합니다.
+   - 명령줄: `xdelta3 -d -s "Lost Heroes 2 (Premium Edition) (Japan).3ds" LostHeroes2PE_3DS_KO_v1.2.xdelta "Lost Heroes 2 (Premium Edition) (Korean).3ds"`
 3. (업데이트 v1.1.0을 쓰는 경우) **복호화된** 업데이트 CIA에 업데이트 xdelta를 적용해 `Lost Heroes 2 Premium Edition Update v1.1.0 (Korean).cia` 를 만들고, 에뮬레이터의 「CIA 설치」로 설치합니다.
    - 업데이트를 설치하면 일본어 업데이트 파일이 한글보다 우선하므로, **일본어 업데이트를 이미 설치했다면 반드시 한글 업데이트로 다시 설치**하세요. 업데이트 없이 본편만 써도 됩니다.
    - 정식 티켓이 붙은 암호화 CIA(예: 파일명에 `piratelegit`)는 Azahar가 설치를 거부합니다. 복호화된 CIA가 필요합니다.
@@ -24,9 +23,9 @@
 실기에서는 **LayeredFS**로 적용합니다. 정품 카트리지·설치판 모두, 업데이트 설치 여부와 무관하게 동작합니다.
 1. 위 2~3단계로 한글 `.3ds`(필수)와 한글 업데이트 `.cia`(업데이트를 설치했다면)를 만듭니다.
 2. 원본 `...(Japan).3ds`, 한글 `...(Korean).3ds`, (선택) 한글 업데이트 `...(Korean).cia`, `LH2_LayeredFS_Maker.exe` 를 한 폴더에 두고 exe를 실행합니다. (Windows 64비트, .NET 설치 불필요)
-3. 만들어진 `luma` 폴더(약 93MB)를 SD 카드 루트에 복사합니다 → `SD:/luma/titles/0004000000146C00/romfs/...`
+3. 만들어진 `luma` 폴더(약 97MB, `romfs` 폴더와 실행 코드 `code.bin`)를 SD 카드 루트에 복사합니다 → `SD:/luma/titles/0004000000146C00/`
 4. Luma3DS 설정(L+Select를 누른 채 전원)에서 **「Enable game patching」** 을 켭니다.
-5. 실기에 업데이트 v1.1.0을 설치했다면 한글 업데이트 `.cia`도 함께 두고 생성기를 실행해야 업데이트 파일까지 한글로 덮입니다.
+5. 실기에 업데이트 v1.1.0을 설치했다면 **반드시** 한글 업데이트 `.cia`도 함께 두고 생성기를 실행하세요. `code.bin`이 설치된 버전과 맞아야 합니다(업데이트를 설치하지 않았다면 한글 업데이트 없이 만드세요).
 
 > 실기 동작은 Azahar의 LayeredFS(모드 폴더)로 같은 폴더를 적용해 원본 일본어 ROM이 한글로 나오는 것까지 확인했고, 실제 3DS 본체에서는 확인하지 않았습니다.
 
@@ -37,16 +36,17 @@
 | 원본 3DS MD5 | `e73ca7ff1b0475fdab84fd7b4b95dd3a` |
 | 원본 3DS SHA-256 | `28c6d18321477ded7712fcd3197dff292a5a052ecf868a90be2a133c9792e771` |
 | (NoCrypto 꺼진 판본) 원본 3DS MD5 | `f04d2f36f395ef807473c39a57061b26` |
-| 결과 3DS 크기 / SHA-256 | 872,046,592 바이트 / `2cb769c708510f2b43179183dcce868b5d12c8b2a73203f294a43f97e8e3db7f` |
+| 결과 3DS 크기 / SHA-256 | 873,824,256 바이트 / `9441a828d3cf3988718ab2e5d79c6de5431b7ac5b0a1ed94f3fa2795e7cf1f84` |
 | 원본 업데이트 CIA(복호화, v1.1.0) 크기 / MD5 | 3,744,704 바이트 / `a0f01dad7f2178f7115c65f2324060e6` |
 | 원본 업데이트 CIA SHA-256 | `07089bdd2238d4bae5da4dcd425cc9845fbb5fed50aa5a34b43a60ec650eb51e` |
-| 결과 업데이트 CIA 크기 / SHA-256 | 3,748,800 바이트 / `958f955ca48d276c964607fc6ac1058b708362668a80505303de8b2a7fcc29f2` |
+| 결과 업데이트 CIA 크기 / SHA-256 | 5,530,560 바이트 / `ab9153dd144bcdcb68dffabdbf9bb4b31c510e1d7dc05634421981978b02530c` |
 
 릴리즈 첨부 파일의 SHA-256은 [release_manifest.json](release_manifest.json)에 있습니다.
 
 ## 한글화 내용
 - 게임 텍스트 고유 문장 27,333개 전부: 메인·서브 이벤트 대사, 거점 대화, 퀘스트, 스킬·아이템·포스·칩 이름과 설명, 전투 메시지, 메뉴·시스템 메시지, 튜토리얼
 - 업데이트 v1.1.0이 바꾸는 이벤트 대사·히어로 그래픽(뉴 건담·울트라맨 이름판)
+- 타이틀 메뉴 「히어로 전기」(내장 레트로 게임)의 아래 화면 메뉴·안내문(리셋, 화면 설정, 경고문 등): 3DS **시스템 공용 폰트**로 그려지는데 일본판 본체 폰트에 한글이 없어, 실기에서도 보이도록 **영어**로 옮겼습니다
 - 엔딩 스태프롤(전용 명조 폰트 재작성, 인명은 한국어 음역)
 - 그림 글자 275장(같은 그림의 사본 포함): 타이틀 로고·메뉴(히어로 전기)·저작권 표기, 불법복제 경고 화면, 거점·캠프·공통 메뉴 UI, 전투 UI·결과 화면, 튜토리얼 캡션, 오프닝 연출 문장, 큐브 로고·지역명·미니맵 범례, DLC·세이브 화면, 카지노 미니게임, 히어로 이름판
 - 게임 자체 폰트 2종(14px·12px 칸)에 한글 1,246자(나눔스퀘어네오 Bold), 스태프롤 폰트에 222자(서울한강체 M)
@@ -54,10 +54,11 @@
 ## 그대로 둔 것
 - 게임 중 나오지 않는 디버그·테스트용 데이터
 - 4~6px 크기의 아주 작은 그림 글자. 일부 6~9px 그림 글자는 한글로 바꿨지만 작아서 뭉개져 보일 수 있습니다.
-- 타이틀 메뉴 「히어로 전기」는 원본 일본어판에서도 에뮬레이터에서는 고르면 타이틀로 돌아옵니다(한글판도 같은 동작).
+- 「히어로 전기」 게임 본편(내장된 별도 레트로 게임) 안의 글자는 일본어 그대로입니다.
+- 에뮬레이터에서 「히어로 전기」를 고르면 게임이 자기 자신을 다시 실행하는데, ROM 파일을 직접 연 경우 에뮬레이터가 설치된 본편을 찾지 못해 타이틀로 돌아오거나(Azahar) 종료됩니다(Lime3DS). 원본 일본어판도 같으며, 본편을 CIA로 설치해 실행하면 정상 동작합니다. 실기는 해당 없음.
 
 ## 검증 범위
-Azahar·Lime3DS에서 부팅, 타이틀 화면, 오프닝 이벤트 대사(이름표 포함)를 확인했고, Azahar에서 한글 업데이트 설치 후 버전 표시(VER. 1. 1. 0)와 LayeredFS 적용을 확인했습니다. 전체 플레이 검증은 하지 않았습니다. 문제를 발견하면 Issues에 알려 주세요.
+Azahar·Lime3DS에서 부팅, 타이틀 화면, 오프닝 이벤트 대사(이름표 포함)를 확인했고, 한글 업데이트 설치 후 버전 표시(VER. 1. 1. 0), LayeredFS 적용, Lime3DS에서 「히어로 전기」 실행과 아래 화면 메뉴(TOP 메뉴·리셋 확인창·화면 설정)를 원본·패치본 모두 확인했습니다. 전체 플레이 검증은 하지 않았습니다. 문제를 발견하면 Issues에 알려 주세요.
 
 ## 문서
 - [CHANGELOG.md](CHANGELOG.md) — 변경 기록

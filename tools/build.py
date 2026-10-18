@@ -66,6 +66,31 @@ def build_romfs(f,off,repl,out):
     p=al(l3start+len(lvl3),bs);out.write(b'\0'*(p-(l3start+len(lvl3))))
     out.write(lvl1+b'\0'*(al(len(lvl1),bs)-len(lvl1)));out.write(lvl2+b'\0'*(al(len(lvl2),bs)-len(lvl2)))
     return hashlib.sha256(hdr[:al(len(hdr),0x200)] if False else (hdr+b'\0'*(l3start-len(hdr)))[:0x200]).digest()
+def rebuild_exefs(pre,newcode):
+    """NCCH 앞부분(헤더~RomFS 직전)에서 ExeFS의 .code를 비압축 newcode로 교체. (pre, 새 RomFS 오프셋) 반환"""
+    pre=bytearray(pre);g=lambda o:struct.unpack_from('<I',pre,o)[0]*MU
+    exo=g(0x1a0)
+    pre[0x20d]&=~1  # ExHeader: .code 압축 플래그 끔
+    pre[0x160:0x180]=hashlib.sha256(bytes(pre[0x200:0x600])).digest()
+    eh=pre[exo:exo+0x200];secs=[]
+    for i in range(10):
+        n,o,s=struct.unpack_from('<8sII',eh,i*16)
+        if s: secs.append([n,bytes(pre[exo+0x200+o:exo+0x200+o+s])])
+    for s in secs:
+        if s[0].rstrip(b'\x00')==b'.code': s[1]=newcode
+    neh=bytearray(0x200);body=bytearray();o=0
+    for i,(n,d) in enumerate(secs):
+        struct.pack_into('<8sII',neh,i*16,n,o,len(d))
+        neh[0x200-32*(i+1):0x200-32*i]=hashlib.sha256(d).digest()
+        body+=d;pad=al(len(body),0x200)-len(body);body+=b'\x00'*pad;o=len(body)
+    exefs=bytes(neh)+bytes(body)
+    newexs=al(len(exefs),MU);exefs+=b'\x00'*(newexs-len(exefs))
+    pre=pre[:exo]+exefs
+    rfo_new=al(len(pre),0x1000);pre+=b'\x00'*(rfo_new-len(pre))
+    struct.pack_into('<I',pre,0x1a4,newexs//MU)
+    struct.pack_into('<I',pre,0x1a8,1)
+    pre[0x1c0:0x1e0]=hashlib.sha256(exefs[:0x200]).digest()
+    return pre,rfo_new
 def build(rom,outp,repl,newcode=None):
     f=open(rom,'rb');f.seek(0);ncsd=bytearray(f.read(0x4000))
     parts=list(struct.unpack_from('<16I',ncsd,0x120))
@@ -78,31 +103,7 @@ def build(rom,outp,repl,newcode=None):
     # NCCH: header, exheader, logo/plain, exefs as original up to romfs
     f.seek(b0);pre=bytearray(f.read(rfo))
     if newcode is not None:
-        ex=pre[0x200:0xa00]; ex[0xd]&=~1; pre[0x200:0xa00]=ex
-        struct.pack_into('<I',ex,0x18,struct.unpack_from('<I',ex,0x18)[0])
-        h2=hashlib.sha256(bytes(pre[0x200:0x600])).digest();pre[0x160:0x180]=h2
-        # rebuild exefs
-        eh=pre[exo:exo+0x200];secs=[]
-        for i in range(10):
-            n,o,s=struct.unpack_from('<8sII',eh,i*16)
-            if s: secs.append([n,bytes(pre[exo+0x200+o:exo+0x200+o+s])])
-        for s in secs:
-            if s[0].rstrip(b'\0')==b'.code': s[1]=newcode
-        neh=bytearray(0x200);body=bytearray();o=0
-        for i,(n,d) in enumerate(secs):
-            struct.pack_into('<8sII',neh,i*16,n,o,len(d))
-            neh[0x200-32*(i+1):0x200-32*i]=hashlib.sha256(d).digest()
-            body+=d;pad=al(len(body),0x200)-len(body);body+=b'\0'*pad;o=len(body)
-        exefs=bytes(neh)+bytes(body)
-        newexs=al(len(exefs),MU)
-        exefs+=b'\0'*(newexs-len(exefs))
-        pre=pre[:exo]+exefs
-        rfo_new=al(len(pre),0x1000)
-        pre+=b'\0'*(rfo_new-len(pre))
-        struct.pack_into('<I',pre,0x1a4,newexs//MU)
-        struct.pack_into('<I',pre,0x1a8,1)  # hash region size 0x200
-        pre[0x1c0:0x1e0]=hashlib.sha256(exefs[:0x200]).digest()
-        rfo=rfo_new
+        pre,rfo=rebuild_exefs(pre,newcode)
     pre[0x18b]=0;pre[0x18f]|=4  # NoCrypto
     struct.pack_into('<I',pre,0x1b0,rfo//MU)
     struct.pack_into('<I',pre,0x1b4,al(rlen,MU)//MU)

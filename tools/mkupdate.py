@@ -75,6 +75,17 @@ def main(src,out):
     f.seek(0);build.build_romfs(f,nc+rfo,repl,W())
     romfs=tmp.getvalue();rlen=len(romfs)
     pre=bytearray(cia[nc:nc+rfo])
+    # 업데이트 실행 코드: 히어로 전기 래퍼 문자열(시스템 폰트) 영어화 후 비압축으로 교체
+    import codeblz,codestr
+    exo=struct.unpack_from('<I',pre,0x1a0)[0]*0x200;eh=pre[exo:exo+0x200]
+    for k in range(10):
+        nm,o,sz=struct.unpack_from('<8sII',eh,k*16)
+        if nm.rstrip(bytes(1))==b'.code': code=bytes(pre[exo+0x200+o:exo+0x200+o+sz])
+    if pre[0x20d]&1: code=codeblz.decompress(code)
+    newcode,n16,n8=codestr.patch(code);print('code strings',n16,n8)
+    if os.environ.get('LFS_OUT'): open(os.path.join(os.environ['LFS_OUT'],'..','code.bin'),'wb').write(newcode)
+    pre,rfo=build.rebuild_exefs(pre,newcode)
+    struct.pack_into('<I',pre,0x1b0,rfo//0x200)
     struct.pack_into('<I',pre,0x1b4,al(rlen,0x200)//0x200)
     pre[0x1e0:0x200]=hashlib.sha256(romfs[:0x200]).digest()
     total=al(rfo+rlen,0x200);struct.pack_into('<I',pre,0x104,total//0x200)

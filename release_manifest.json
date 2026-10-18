@@ -1,35 +1,30 @@
 {
- "version": "v1.1",
- "asset": "LostHeroes2PE_3DS_KO_v1.1.xdelta",
- "asset_size": 88560851,
- "asset_sha256": "6c84478a81ccd3138aee3ba701b3edfd3f7411a8f649e0742a0f7d456efea324",
+ "version": "v1.2",
+ "asset": "LostHeroes2PE_3DS_KO_v1.2.xdelta",
+ "asset_size": 92383149,
+ "asset_sha256": "8fd263a5916ad451cc5ba629248211c60b054eb135c47a935b55a9fb1d995dc3",
  "source_3ds_size": 1073741824,
- "source_3ds_md5": "e73ca7ff1b0475fdab84fd7b4b95dd3a",
- "source_3ds_sha256": "28c6d18321477ded7712fcd3197dff292a5a052ecf868a90be2a133c9792e771",
- "result_3ds_size": 872046592,
- "result_3ds_md5": "8031072fccb46df6f32c7e9ea966d862",
- "result_3ds_sha256": "2cb769c708510f2b43179183dcce868b5d12c8b2a73203f294a43f97e8e3db7f",
- "crypto_flag": {
-  "asset": "LostHeroes2PE_3DS_KO_v1.1_CryptoFlag.xdelta",
-  "asset_size": 88560876,
-  "asset_sha256": "5c935a6b6a64df798e4d3ec0fbbac893c2f9408804002e6e9486ca92abc006d2",
-  "source_3ds_md5": "f04d2f36f395ef807473c39a57061b26",
-  "source_3ds_sha256": "6cb7b52fdc7d87a672ee59f8be4598ae25f0a83f2dea2ae0956e4472196f8e08"
- },
+ "source_3ds_md5": [
+  "e73ca7ff1b0475fdab84fd7b4b95dd3a",
+  "f04d2f36f395ef807473c39a57061b26"
+ ],
+ "result_3ds_size": 873824256,
+ "result_3ds_md5": "f1aee302dbd51a113810f463eec7596a",
+ "result_3ds_sha256": "9441a828d3cf3988718ab2e5d79c6de5431b7ac5b0a1ed94f3fa2795e7cf1f84",
  "update": {
-  "asset": "LostHeroes2PE_3DS_KO_Update_v1.1.0_v1.1.xdelta",
-  "asset_size": 439035,
-  "asset_sha256": "74bd5616f019233d3e7a91fc7e1a6d165dea30c12ac9548d55484fd432ec557e",
+  "asset": "LostHeroes2PE_3DS_KO_Update_v1.1.0_v1.2.xdelta",
+  "asset_size": 4163671,
+  "asset_sha256": "7b4587fced22d57455f2ef5293318676c7dec6af4d2da835c06411fdef1fd58e",
   "source_cia_size": 3744704,
   "source_cia_md5": "a0f01dad7f2178f7115c65f2324060e6",
   "source_cia_sha256": "07089bdd2238d4bae5da4dcd425cc9845fbb5fed50aa5a34b43a60ec650eb51e",
-  "result_cia_size": 3748800,
-  "result_cia_md5": "72cb14d34fe5677b8f8de464f43099cf",
-  "result_cia_sha256": "958f955ca48d276c964607fc6ac1058b708362668a80505303de8b2a7fcc29f2"
+  "result_cia_size": 5530560,
+  "result_cia_md5": "001902957889458beb2bcbfe4422fdf7",
+  "result_cia_sha256": "ab9153dd144bcdcb68dffabdbf9bb4b31c510e1d7dc05634421981978b02530c"
  },
  "layeredfs_maker": {
   "asset": "LH2_LayeredFS_Maker.exe",
-  "asset_size": 10128562,
-  "asset_sha256": "49b2a8de4f0a735d301d774036f412fddcb8d64488c2e1c25bd9819ee6fd1a0c"
+  "asset_size": 10129586,
+  "asset_sha256": "ef999f033f72d18d7b407b8a32291256ea9b09d529aa0ef25238401618a48ded"
  }
 }
